@@ -1,0 +1,200 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Study Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f8fd;--card:#fff;--tx:#14233b;--mu:#6b7a90;--bd:#e3ebf5;--pr:#3b8eea;--ps:#e8f2fe;--nv:#16284a;--ok:#2fb584;--er:#e0607e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1626;--card:#16213a;--tx:#e8eefb;--mu:#93a3bf;--bd:#243453;--pr:#6aa9f5;--ps:#1b2b4b;--nv:#dce7fb}}
+:root[data-theme="dark"]{--bg:#0e1626;--card:#16213a;--tx:#e8eefb;--mu:#93a3bf;--bd:#243453;--pr:#6aa9f5;--ps:#1b2b4b;--nv:#dce7fb}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.55 Inter,system-ui,sans-serif}
+.app{display:flex;min-height:100vh}
+aside{width:228px;background:var(--card);border-right:1px solid var(--bd);padding:22px 14px;position:sticky;top:0;height:100vh;flex:none}
+.logo{display:flex;align-items:center;gap:10px;padding:0 8px 22px;color:var(--nv);font-size:17px}
+.logo i{background:var(--pr);color:#fff;border-radius:10px;padding:6px;display:flex}
+nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:10px;color:var(--mu);text-decoration:none;margin-bottom:3px;font-weight:500}
+nav a:hover{background:var(--ps)}nav a.on{background:var(--ps);color:var(--pr)}
+main{flex:1;padding:30px 32px;max-width:980px;min-width:0}
+h1{font-size:24px;margin:0 0 4px;color:var(--nv)}h2{font-size:18px;margin:6px 0 12px;color:var(--nv)}h3{margin:0 0 10px;color:var(--nv);font-size:15px}
+.mu{color:var(--mu)}.sm{font-size:13px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:20px;margin-bottom:16px}
+.g{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}.g .card{margin:0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.end{justify-content:flex-end}.end>*{flex:none}.sp{justify-content:space-between}.sp>*{flex:none}
+.b{background:var(--pr);color:#fff;border:0;border-radius:10px;padding:10px 18px;font:inherit;font-weight:500;cursor:pointer}
+.b.g{background:var(--ps);color:var(--pr)}.b.s{padding:5px 11px;font-size:13px}.b.d{background:#fdeaee;color:var(--er)}
+.b:focus-visible,.opt:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--pr);outline-offset:2px}
+input,select{width:100%;padding:9px 11px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+label{display:block;font-size:13px;color:var(--mu);margin:10px 0 4px}
+.bar{height:8px;background:var(--ps);border-radius:6px;overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:var(--pr);border-radius:6px}
+.big{font-size:56px;font-weight:600;color:var(--nv);text-align:center;font-variant-numeric:tabular-nums;margin:6px 0 14px}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd)}.item:last-child{border:0}.item>div{flex:1;min-width:0}
+.dot{width:10px;height:10px;border-radius:50%;flex:none}
+.pill{font-size:12px;padding:2px 9px;border-radius:20px;background:var(--ps);color:var(--pr)}
+.opt{display:block;width:100%;text-align:left;margin-bottom:8px;padding:12px 14px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:10px;font:inherit;cursor:pointer}.opt:hover,.opt.on{border-color:var(--pr);background:var(--ps)}
+.tabs{display:inline-flex;background:var(--ps);border-radius:10px;padding3px;padding:3px}.tabs button{border:0;background:none;color:var(--mu);padding:6px 14px;border-radius:8px;font:inherit;cursor:pointer}.tabs .on{background:var(--card);color:var(--pr)}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.cal div{min-height:56px;padding:5px;border-radius:8px;font-size:13px;cursor:pointer;background:var(--bg)}.cal .h{min-height:0;background:none;text-align:center;color:var(--mu);cursor:default}
+.cal .sel{outline:2px solid var(--pr)}.cal .td b{color:var(--pr)}.cal .o{opacity:.4}.cal .dt{display:flex;gap:3px;flex-wrap:wrap;margin-top:4px}.cal .dt i{width:7px;height:7px;border-radius:50%}
+.chart{display:flex;align-items:flex-end;gap:10px;height:130px}.chart div{flex:1;text-align:center;font-size:12px;color:var(--mu)}.chart i{display:block;background:var(--pr);border-radius:6px 6px 0 0;min-height:3px;margin-bottom:4px}
+#ov .mb{position:fixed;inset:0;background:rgba(10,20,40,.45);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.md{background:var(--card);border-radius:14px;padding:22px;width:100%;max-width:420px;max-height:90vh;overflow:auto}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:var(--nv);color:var(--card);padding:10px 18px;border-radius:10px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:60}#toast.on{opacity:1}
+ul.t{padding-left:18px;margin:0}ul.t li{margin-bottom:5px}
+@media(max-width:800px){.app{display:block}aside{position:fixed;bottom:0;left:0;right:0;top:auto;width:100%;height:auto;z-index:40;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));border-right:0;border-top:1px solid var(--bd)}.logo{display:none}nav{display:flex;justify-content:space-around}nav a{margin:0;padding:10px 12px}nav .l{display:none}main{padding:20px 16px 100px}.big{font-size:46px}.cal div{min-height:46px}}
+</style></head><body>
+<div class="app"><aside><div class="logo"><i id="lg"></i><b>Study Planner</b></div><nav id="nav"></nav></aside><main id="main"></main></div>
+<div id="ov"></div><div id="toast"></div>
+<script>
+const P_={layout:'<rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/>',cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',check:'<path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',book:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h5"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',chart:'<path d="M3 3v18h18M7 15v3M12 9v9M17 5v13"/>',set:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/>'};
+const I=(n,s=20)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P_[n]}</svg>`;
+const $=s=>document.querySelector(s),LK='studyplanner.v1';let K=LK;
+const D={name:'',events:[],tasks:[],quiz:null,methods:[],sessions:[],focus:{},pt:'',rem:{on:false,time:'19:00',last:''},goals:{d:60,w:300},pomo:{f:25,b:5,l:15,n:4}};
+function load(){try{return Object.assign(structuredClone(D),JSON.parse(localStorage.getItem(K)||'{}'))}catch(e){return structuredClone(D)}}
+let S=load();const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const today=()=>ymd(new Date()),dt=s=>new Date(s+'T00:00'),uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const fd=s=>dt(s).toLocaleDateString('id-ID',{day:'numeric',month:'short'});
+const FD=s=>dt(s).toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+const byT=(a,b)=>(a.d+a.s).localeCompare(b.d+b.s);
+const mins=d=>S.sessions.filter(x=>x.d===d).reduce((a,x)=>a+x.m,0);
+const addD=(s,n)=>{const d=dt(s);d.setDate(d.getDate()+n);return ymd(d)};
+function toast(m){const t=$('#toast');t.textContent=m;t.className='on';clearTimeout(toast.h);toast.h=setTimeout(()=>t.className='',2800)}
+const CAT={kuliah:['Kuliah','#4f8fe8'],ujian:['Ujian','#e0607e'],belajar:['Belajar','#3bb59a'],pribadi:['Pribadi','#e0a23b']};
+const PRI={tinggi:'Tinggi',sedang:'Sedang',rendah:'Rendah'};
+const NAV=[['dashboard','Dashboard','layout'],['kalender','Kalender','cal'],['tugas','Daftar Tugas','check'],['metode','Metode Belajar','book'],['waktu','Waktu Belajar Terbaik','clock'],['tracker','Study Tracker','chart'],['pengaturan','Pengaturan','set']];
+$('#lg').innerHTML=I('book',18);
+const KEYS=['V','A','K','AV','RW'];
+const M={V:{n:'Visual',d:'Kamu lebih mudah memahami materi lewat gambar, diagram, grafik, dan mind map.',t:['Buat mind map dari materi.','Gunakan diagram dan ilustrasi.','Berikan warna berbeda untuk informasi penting.','Gunakan flashcard bergambar.'],s:['Lihat judul, gambar, dan grafik pada materi.','Ubah isi materi menjadi mind map atau diagram.','Tutup catatan, lalu gambar ulang dari ingatan.']},
+A:{n:'Auditori',d:'Kamu lebih mudah memahami materi lewat mendengarkan, berdiskusi, dan membaca dengan suara.',t:['Dengarkan penjelasan materi.','Coba membaca materi dengan suara.','Diskusikan materi dengan teman.','Rekam penjelasan dengan suara sendiri untuk didengarkan kembali.'],s:['Dengarkan penjelasan atau rekaman materi.','Jelaskan ulang dengan suara keras.','Diskusikan bagian yang masih membingungkan.']},
+K:{n:'Kinestetik',d:'Kamu lebih mudah memahami materi lewat praktik langsung, eksperimen, dan gerakan.',t:['Praktikkan materi secara langsung.','Gunakan simulasi atau eksperimen sederhana.','Kerjakan latihan soal.','Gunakan aktivitas belajar yang melibatkan gerakan ringan.'],s:['Baca ringkas konsepnya, lalu langsung praktik.','Kerjakan latihan soal atau simulasi.','Evaluasi hasilnya dan ulangi bagian yang salah.']},
+AV:{n:'Audio Visual',d:'Kamu lebih mudah memahami materi lewat video, animasi, dan tutorial yang memadukan suara dan gambar.',t:['Tonton video pembelajaran.','Gunakan animasi untuk memahami konsep.','Ikuti tutorial pembelajaran.','Buat catatan dari video yang ditonton.'],s:['Pilih satu video atau tutorial tentang materi.','Jeda di bagian penting dan catat intinya.','Tonton ulang bagian sulit dengan kecepatan lebih lambat.']},
+RW:{n:'Membaca dan Menulis',d:'Kamu lebih mudah memahami materi lewat membaca, mencatat, dan menulis ulang informasi.',t:['Baca materi secara bertahap.','Buat rangkuman menggunakan bahasa sendiri.','Tulis poin-poin penting.','Buat pertanyaan dan jawaban dari materi.'],s:['Baca materi bagian demi bagian.','Tulis rangkuman dengan bahasa sendiri.','Buat daftar pertanyaan, lalu jawab tanpa melihat catatan.']}};
+const Q=[['Saat belajar hal baru, kamu paling nyaman dengan…',['Melihat diagram atau gambar','Mendengarkan penjelasan','Langsung mencobanya','Menonton video tutorial','Membaca teks atau buku']],
+['Agar mudah mengingat materi, kamu biasanya…',['Membayangkan gambar atau warna','Mengulanginya dengan suara','Mengingat apa yang pernah dipraktikkan','Mengingat adegan dari video','Mengingat catatan tertulis']],
+['Cara menyiapkan ujian yang kamu pilih:',['Membuat mind map','Berdiskusi dengan teman','Mengerjakan latihan soal','Menonton ulang video materi','Membuat rangkuman']],
+['Saat guru menjelaskan di kelas, kamu…',['Mencatat dalam bentuk skema','Menyimak dengan saksama','Ingin segera praktik','Senang jika ada tayangan animasi','Mencatat kalimat penting']],
+['Untuk memahami konsep yang sulit, kamu…',['Mencari grafik atau gambarnya','Meminta orang lain menjelaskan','Mencoba contoh soal','Mencari animasinya di internet','Membaca penjelasan langkah demi langkah']],
+['Dalam tugas kelompok, kamu paling suka…',['Mendesain slide','Menjadi pembicara atau pemandu diskusi','Membuat prototipe atau demo','Menyunting video presentasi','Menulis laporan']],
+['Saat bosan belajar, yang menyegarkan:',['Membuat catatan berwarna','Mendengarkan podcast','Berjalan sambil belajar','Menonton video edukasi','Membaca artikel menarik']],
+['Saat mencari arah ke tempat baru, kamu…',['Melihat peta','Mendengarkan petunjuk lisan','Langsung berjalan dan mencoba','Memakai peta dengan suara navigasi','Menuliskan langkah petunjuknya']],
+['Kegiatan di kelas yang paling kamu suka:',['Presentasi bergambar','Diskusi','Praktikum','Menonton film dokumenter','Membaca modul']],
+['Untuk menguji diri setelah belajar, kamu…',['Menggambar ulang konsepnya','Menjelaskan dengan lisan','Mengerjakan simulasi','Menjawab kuis video interaktif','Menulis ulang dengan kata sendiri']]];
+let QZ={i:0,a:[],run:false},C={v:'month',d:today()},TF={s:'all',p:'all'},MORE=false;
+const T={m:'f',left:S.pomo.f*60,run:false,end:0,n:0};
+const tot=()=>S.pomo[T.m]*60,fmtT=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+function upd(){const e=$('#tm'),s=fmtT(T.left);if(e)e.textContent=s;document.title=T.run?s+' · Study Planner':'Study Planner'}
+function tick(){if(!T.run)return;T.left=Math.max(0,Math.round((T.end-Date.now())/1000));upd();if(T.left<=0){T.run=false;if(T.m==='f'){S.sessions.push({d:today(),m:S.pomo.f,t:Date.now()});T.n++;T.m=T.n%S.pomo.n===0?'l':'b';toast('Sesi selesai dan tercatat. Saatnya istirahat.')}else{T.m='f';toast('Istirahat selesai. Siap belajar lagi?')}T.left=tot();save();render()}}
+setInterval(tick,250);
+setInterval(()=>{const n=new Date(),h=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');if(S.rem.on&&h===S.rem.time&&S.rem.last!==today()){S.rem.last=today();save();toast('Pengingat: waktunya belajar!');try{if(Notification.permission==='granted')new Notification('Study Planner','Waktunya belajar!')}catch(e){}}},20000);
+// forms
+const fld=(l,id,t,v)=>`<label for="${id}">${l}</label><input id="${id}" type="${t}" value="${esc(v)}">`;
+const sel=(l,id,o,v)=>`<label for="${id}">${l}</label><select id="${id}">${o.map(([k,n])=>`<option value="${k}"${k==v?' selected':''}>${n}</option>`).join('')}</select>`;
+function modal(t,b,ok){$('#ov').innerHTML=`<div class="mb"><div class="md" role="dialog"><h3>${t}</h3>${b}<div class="row end" style="margin-top:16px"><button class="b g" data-a="close">Batal</button><button class="b" id="okb">Simpan</button></div></div></div>`;$('#okb').onclick=()=>{if(ok()!==false)close_()};const f=$('.md input');f&&f.focus()}
+const close_=()=>$('#ov').innerHTML='';const v_=id=>$('#'+id).value.trim();
+function evForm(id){const e=S.events.find(x=>x.id===id)||{d:C.d,s:'09:00',e:'10:00',c:'belajar',t:''};
+modal(id?'Edit kegiatan':'Tambah kegiatan',fld('Nama kegiatan','m_t','text',e.t)+fld('Tanggal','m_d','date',e.d)+`<div class="row"><div>${fld('Mulai','m_s','time',e.s)}</div><div>${fld('Selesai','m_e','time',e.e)}</div></div>`+sel('Kategori','m_c',Object.entries(CAT).map(([k,v])=>[k,v[0]]),e.c),()=>{
+if(!v_('m_t')||!v_('m_d'))return toast('Isi nama dan tanggal kegiatan.'),false;
+const o={id:e.id||uid(),t:v_('m_t'),d:v_('m_d'),s:v_('m_s')||'00:00',e:v_('m_e')||'00:00',c:v_('m_c')};
+if(id)S.events=S.events.map(x=>x.id===id?o:x);else S.events.push(o);C.d=o.d;save();render();toast('Kegiatan disimpan.')})}
+function taskForm(id){const e=S.tasks.find(x=>x.id===id)||{t:'',ds:'',due:today(),p:'sedang'};
+modal(id?'Edit tugas':'Tambah tugas',fld('Nama tugas','m_t','text',e.t)+fld('Deskripsi','m_ds','text',e.ds)+fld('Tenggat','m_d','date',e.due)+sel('Prioritas','m_p',Object.entries(PRI),e.p),()=>{
+if(!v_('m_t'))return toast('Isi nama tugas.'),false;
+const o={id:e.id||uid(),t:v_('m_t'),ds:v_('m_ds'),due:v_('m_d'),p:v_('m_p'),done:!!e.done};
+if(id)S.tasks=S.tasks.map(x=>x.id===id?o:x);else S.tasks.push(o);save();render();toast('Tugas disimpan.')})}
+// pages
+const evRow=e=>`<div class="item"><span class="dot" style="background:${CAT[e.c][1]}"></span><div><b>${esc(e.t)}</b><div class="mu sm">${e.s}–${e.e} · ${CAT[e.c][0]}${C.v&&e.d!==C.d?' · '+fd(e.d):''}</div></div><button class="b g s" data-a="eev" data-v="${e.id}">Edit</button><button class="b d s" data-a="dev" data-v="${e.id}">Hapus</button></div>`;
+const pages={
+dashboard(){const h=new Date().getHours(),g=h<11?'pagi':h<15?'siang':h<18?'sore':'malam',td=today(),open=S.tasks.filter(t=>!t.done).sort((a,b)=>a.due.localeCompare(b.due)),ev=S.events.filter(e=>e.d===td).sort(byT),pc=Math.min(100,Math.round(mins(td)/S.goals.d*100)),up=S.events.filter(e=>e.d>td).sort(byT).slice(0,3);
+return `<div class="row sp" style="margin-bottom:20px"><div><h1>Selamat ${g}${S.name?', '+esc(S.name):''}</h1><div class="mu">${FD(td)}</div></div><button class="b" data-a="start">Mulai Belajar</button></div>
+${S.quiz?'':'<div class="card row sp"><div><b>Kenali cara belajarmu</b><div class="mu sm">Isi kuis singkat agar tips belajar sesuai preferensimu.</div></div><a class="b g" style="text-decoration:none" href="#metode">Isi kuis</a></div>'}
+<div class="g"><div class="card"><h3>Tugas yang harus diselesaikan</h3><h1>${open.length}</h1>${open.slice(0,3).map(t=>`<div class="sm">• ${esc(t.t)} <span class="mu">(${fd(t.due)})</span></div>`).join('')||'<div class="mu sm">Tidak ada tugas tersisa.</div>'}</div>
+<div class="card"><h3>Jadwal belajar hari ini</h3>${ev.map(e=>`<div class="sm"><span class="dot" style="background:${CAT[e.c][1]};display:inline-block"></span> ${e.s} ${esc(e.t)}</div>`).join('')||'<div class="mu sm">Belum ada kegiatan. Tambahkan di Kalender.</div>'}</div>
+<div class="card"><h3>Progres belajar hari ini</h3><h1>${pc}%</h1><div class="bar"><i style="width:${pc}%"></i></div><div class="mu sm">${mins(td)} dari ${S.goals.d} menit target</div></div></div>
+<div class="card" style="margin-top:16px"><h3>Aktivitas yang akan datang</h3>${up.map(e=>`<div class="item"><span class="dot" style="background:${CAT[e.c][1]}"></span><div><b>${esc(e.t)}</b></div><span class="mu sm">${fd(e.d)}, ${e.s}</span></div>`).join('')||'<div class="mu sm">Belum ada aktivitas mendatang.</div>'}</div>`},
+kalender(){const sd=dt(C.d),tdy=today(),tabs=`<div class="tabs">${[['day','Harian'],['week','Mingguan'],['month','Bulanan']].map(([k,n])=>`<button class="${C.v===k?'on':''}" data-a="cv" data-v="${k}">${n}</button>`).join('')}</div>`;
+const dots=d=>S.events.filter(e=>e.d===d).map(e=>`<i style="background:${CAT[e.c][1]}"></i>`).join('');let body='',title;
+if(C.v==='month'){title=sd.toLocaleDateString('id-ID',{month:'long',year:'numeric'});const f=new Date(sd.getFullYear(),sd.getMonth(),1),off=(f.getDay()+6)%7;body='<div class="cal">'+['Sen','Sel','Rab','Kam','Jum','Sab','Min'].map(x=>`<div class="h">${x}</div>`).join('');
+for(let i=0;i<42;i++){const d=new Date(f);d.setDate(1-off+i);const s=ymd(d);body+=`<div class="${s===C.d?'sel ':''}${s===tdy?'td ':''}${d.getMonth()!==sd.getMonth()?'o':''}" data-a="sel" data-v="${s}"><b>${d.getDate()}</b><span class="dt">${dots(s)}</span></div>`}body+='</div>'}
+else if(C.v==='week'){const m=addD(C.d,-((sd.getDay()+6)%7));title='Minggu '+fd(m)+' – '+fd(addD(m,6));body='<div class="cal">';for(let i=0;i<7;i++){const s=addD(m,i);body+=`<div class="${s===C.d?'sel ':''}${s===tdy?'td':''}" data-a="sel" data-v="${s}"><b>${dt(s).toLocaleDateString('id-ID',{weekday:'short'})} ${dt(s).getDate()}</b><span class="dt">${dots(s)}</span></div>`}body+='</div>'}
+else title=FD(C.d);
+const list=S.events.filter(e=>e.d===C.d).sort(byT);
+return `<div class="row sp" style="margin-bottom:16px"><h1>Kalender</h1><button class="b" data-a="aev">+ Tambah kegiatan</button></div>
+<div class="card"><div class="row sp" style="margin-bottom:14px">${tabs}<div class="row"><button class="b g s" data-a="cn" data-v="-1" aria-label="Sebelumnya">‹</button><b>${title}</b><button class="b g s" data-a="cn" data-v="1" aria-label="Berikutnya">›</button><button class="b g s" data-a="ct">Hari ini</button></div></div>${body}
+<div class="row sm mu" style="margin-top:12px">${Object.values(CAT).map(c=>`<span><span class="dot" style="background:${c[1]};display:inline-block"></span> ${c[0]}</span>`).join('')}</div></div>
+<div class="card"><h3>Kegiatan ${FD(C.d)}</h3>${list.map(evRow).join('')||'<div class="mu sm">Belum ada kegiatan di tanggal ini.</div>'}</div>`},
+tugas(){const all=S.tasks,dn=all.filter(t=>t.done).length,pc=all.length?Math.round(dn/all.length*100):0;
+const l=all.filter(t=>(TF.s==='all'||(TF.s==='done')===t.done)&&(TF.p==='all'||t.p===TF.p)).sort((a,b)=>a.done-b.done||a.due.localeCompare(b.due));
+return `<div class="row sp" style="margin-bottom:16px"><h1>Daftar Tugas</h1><button class="b" data-a="atk">+ Tambah tugas</button></div>
+<div class="card"><div class="row sp"><b>Progres penyelesaian</b><span>${dn}/${all.length} selesai (${pc}%)</span></div><div class="bar"><i style="width:${pc}%"></i></div>
+<div class="row" style="margin-top:8px"><div>${sel('Status','f_s',[['all','Semua'],['open','Belum selesai'],['done','Selesai']],TF.s).replace('<select','<select data-c="fs"')}</div><div>${sel('Prioritas','f_p',[['all','Semua'],...Object.entries(PRI)],TF.p).replace('<select','<select data-c="fp"')}</div></div></div>
+<div class="card">${l.map(t=>`<div class="item"><input type="checkbox" style="width:20px;height:20px;flex:none" data-c="td" data-v="${t.id}" ${t.done?'checked':''} aria-label="Selesai"><div style="${t.done?'text-decoration:line-through;opacity:.55':''}"><b>${esc(t.t)}</b><div class="mu sm">${esc(t.ds)}${t.ds?' · ':''}Tenggat ${fd(t.due)}${!t.done&&t.due<today()?' <span style="color:var(--er)">(terlambat)</span>':''}</div></div><span class="pill">${PRI[t.p]}</span><button class="b g s" data-a="etk" data-v="${t.id}">Edit</button><button class="b d s" data-a="dtk" data-v="${t.id}">Hapus</button></div>`).join('')||'<div class="mu">Belum ada tugas yang cocok. Tambahkan tugas pertamamu.</div>'}</div>`},
+metode(){if(S.quiz&&!QZ.run)return result();const q=Q[QZ.i];
+return `<h1>Kuis Metode Belajar</h1><p class="mu">Pilih jawaban yang paling menggambarkan dirimu. Tidak ada jawaban benar atau salah.</p><div class="card"><div class="mu sm">Pertanyaan ${QZ.i+1} dari ${Q.length}</div><div class="bar"><i style="width:${QZ.i/Q.length*100}%"></i></div><h2>${q[0]}</h2>${q[1].map((o,i)=>`<button class="opt" data-a="ans" data-v="${i}">${o}</button>`).join('')}</div>`},
+tips(){if(!S.methods.length)return `<h1>Tips Belajarmu</h1><div class="card">Isi kuis dulu agar tips sesuai preferensimu.<br><br><a class="b" style="text-decoration:none;display:inline-block" href="#metode">Isi kuis</a></div>`;
+const ms=S.methods;return `<h1>Tips Belajarmu</h1><div class="card"><span class="pill">Metode belajarmu</span><h2 style="margin-top:10px">${ms.map(k=>M[k].n).join(' + ')}</h2><p>${ms.map(k=>M[k].d).join(' ')}</p></div>
+<div class="g"><div class="card"><h3>Rekomendasi aktivitas</h3>${ms.map(k=>`${ms.length>1?`<b class="sm">${M[k].n}</b>`:''}<ul class="t">${M[k].t.map(x=>`<li>${x}</li>`).join('')}</ul>`).join('<br>')}</div>
+<div class="card"><h3>Langkah-langkah belajar</h3><ol class="t">${ms.flatMap(k=>M[k].s).map(x=>`<li>${x}</li>`).join('')}</ol></div></div>
+<div class="card" style="margin-top:16px"><h3>Tips tambahan</h3><ul class="t"><li>Belajar 25 menit, lalu istirahat 5 menit dengan timer Pomodoro.</li><li>Fokus pada satu materi dalam satu sesi.</li><li>Tidur cukup agar materi mudah diingat.</li></ul></div>
+<div class="row end"><button class="b g" data-a="more">Lihat Metode Lain</button><button class="b" data-a="go" data-v="tracker">Mulai Sesi Belajar</button></div>
+${MORE?`<div class="card" style="margin-top:16px"><h3>Pilih atau gabungkan metode</h3><p class="mu sm">Kamu bebas mengganti metode kapan saja tanpa mengulang kuis.</p>${KEYS.map(k=>`<button class="opt ${ms.includes(k)?'on':''}" data-a="tm" data-v="${k}"><b>${M[k].n}</b> — <span class="mu">${M[k].d}</span></button>`).join('')}</div>`:''}`},
+waktu(){const SL=[['pagi','Pagi','05.00–09.00'],['siang','Siang','12.00–14.00'],['sore','Sore','15.00–18.00'],['malam','Malam','19.00–21.00']],f=S.focus,top=SL.slice().sort((a,b)=>(f[b[0]]||0)-(f[a[0]]||0))[0],has=(f[top[0]]||0)>0;
+return `<h1>Waktu Belajar Terbaik</h1><p class="mu">Waktu terbaik setiap orang berbeda-beda. Pilih yang paling cocok, dan tetap sisihkan waktu untuk istirahat dan tidur.</p>
+<div class="card"><h3>Waktu belajar yang kamu sukai</h3><div class="g">${SL.map(s=>`<button class="opt ${S.pt===s[0]?'on':''}" data-a="pt" data-v="${s[0]}"><b>${s[1]}</b><br><span class="mu sm">${s[2]}</span></button>`).join('')}</div></div>
+<div class="card"><h3>Catat saat kamu merasa paling fokus</h3><div class="row">${SL.map(s=>`<button class="b g" data-a="fl" data-v="${s[0]}">${s[1]} (${f[s[0]]||0})</button>`).join('')}</div>
+<p style="margin-bottom:0">${has?`Berdasarkan catatanmu, kamu paling sering fokus di <b>${top[1]}</b> (${top[2]}). Coba jadwalkan materi tersulit di waktu ini.`:'Belum ada catatan. Setelah beberapa kali mencatat, rekomendasi muncul di sini.'}</p></div>
+<div class="card"><h3>Pengingat belajar</h3><div class="row"><div><label><input type="checkbox" style="width:auto" data-c="rm" ${S.rem.on?'checked':''}> Aktifkan pengingat harian</label></div><div>${fld('Jam pengingat','rt','time',S.rem.time).replace('<input','<input data-c="rt"')}</div></div><div class="mu sm">Pengingat muncul saat halaman ini terbuka di browser.</div></div>`},
+tracker(){const td=today(),tm=S.sessions.reduce((a,x)=>a+x.m,0),wk=[...Array(7)].map((_,i)=>{const d=addD(td,i-6);return[d,mins(d)]}),wm=wk.reduce((a,x)=>a+x[1],0),mx=Math.max(30,...wk.map(x=>x[1])),
+pg=(a,b)=>Math.min(100,Math.round(a/b*100)),p=S.pomo,lab={f:'Fokus',b:'Istirahat',l:'Istirahat panjang'}[T.m],idle=T.left===tot();
+return `<h1>Study Tracker</h1><p class="mu">Timer Pomodoro dan perkembangan belajarmu.</p>
+<div class="card"><div class="row sp"><b>${lab}</b><span class="mu sm">Sesi ke-${T.n+1} · istirahat panjang tiap ${p.n} sesi</span></div><div class="big" id="tm">${fmtT(T.left)}</div>
+<div class="row end" style="justify-content:center">${T.run?'<button class="b" data-a="tp">Jeda</button>':`<button class="b" data-a="tp">${idle?'Mulai':'Lanjutkan'}</button>`}<button class="b g" data-a="tr">Reset</button></div>
+<div class="row" style="margin-top:12px">${[['f','Fokus (menit)'],['b','Istirahat'],['l','Istirahat panjang'],['n','Sesi per siklus']].map(([k,n])=>`<div><label for="po${k}">${n}</label><input id="po${k}" type="number" min="1" max="180" value="${p[k]}" data-c="po" data-k="${k}"></div>`).join('')}</div></div>
+<div class="g"><div class="card"><div class="mu sm">Total waktu belajar</div><h1>${Math.floor(tm/60)}j ${tm%60}m</h1></div><div class="card"><div class="mu sm">Sesi belajar</div><h1>${S.sessions.length}</h1></div><div class="card"><div class="mu sm">Tugas selesai</div><h1>${S.tasks.filter(t=>t.done).length}</h1></div></div>
+<div class="g" style="margin-top:16px"><div class="card"><h3>Target harian</h3><div class="bar"><i style="width:${pg(mins(td),S.goals.d)}%"></i></div><span class="sm mu">${mins(td)} / ${S.goals.d} menit</span></div><div class="card"><h3>Target mingguan</h3><div class="bar"><i style="width:${pg(wm,S.goals.w)}%"></i></div><span class="sm mu">${wm} / ${S.goals.w} menit (7 hari terakhir)</span></div></div>
+<div class="card" style="margin-top:16px"><h3>Grafik 7 hari terakhir (menit)</h3><div class="chart">${wk.map(([d,m])=>`<div><i style="height:${m/mx*100}px"></i>${m}<br>${dt(d).toLocaleDateString('id-ID',{weekday:'short'})}</div>`).join('')}</div></div>
+<div class="card"><h3>Riwayat belajar</h3>${S.sessions.slice(-8).reverse().map(x=>`<div class="item"><div>${fd(x.d)}, ${new Date(x.t).toTimeString().slice(0,5)}</div><b>${x.m} menit</b></div>`).join('')||'<div class="mu sm">Belum ada sesi. Selesaikan satu sesi fokus untuk mencatatnya.</div>'}</div>`},
+pengaturan(){return `<h1>Pengaturan</h1><div class="card"><h3>Profil</h3>${fld('Nama panggilan','sn','text',S.name).replace('<input','<input data-c="sn"')}<h3 style="margin-top:18px">Target belajar</h3><div class="row"><div>${fld('Harian (menit)','gd','number',S.goals.d).replace('<input','<input data-c="gd" min="1"')}</div><div>${fld('Mingguan (menit)','gw','number',S.goals.w).replace('<input','<input data-c="gw" min="1"')}</div></div><div class="mu sm" style="margin-top:8px">Data tersimpan di browser ini.</div></div>
+<div class="card row sp"><div><h3 style="margin:0">Akun</h3><div class="mu sm">Masuk sebagai ${esc(U)}</div></div><button class="b g" data-a="out">Keluar</button></div><div class="card"><h3>Hapus semua data</h3><p class="mu sm">Menghapus kegiatan, tugas, hasil kuis, dan riwayat belajar.</p><button class="b d" data-a="wipe">Hapus data</button></div>`}};
+function result(){const sc=S.quiz.sc,r=KEYS.slice().sort((a,b)=>sc[b]-sc[a]),m=S.methods;
+return `<h1>Hasil Kuis</h1><div class="card"><span class="pill">${m.length>1?'Kombinasi metode':'Metode dominan'}</span><h2 style="margin-top:10px">${m.map(k=>M[k].n).join(' + ')}</h2><p>${m.map(k=>M[k].d).join(' ')}</p>
+${r.map(k=>`<div class="sm row sp"><span>${M[k].n}</span><span>${sc[k]}</span></div><div class="bar"><i style="width:${sc[k]/Q.length*100}%"></i></div>`).join('')}
+<p class="mu sm">Hasil ini hanyalah rekomendasi berdasarkan preferensimu saat ini, bukan label permanen atau batas kemampuan. Kamu bebas menggabungkan dan mengganti metode belajar.</p>
+<div class="row end"><button class="b g" data-a="retake">Ulangi Kuis</button><a class="b" style="text-decoration:none" href="#tips">Lihat Tips Belajarmu</a></div></div>`}
+function render(){let h=(location.hash||'#dashboard').slice(1);if(!pages[h])h='dashboard';
+$('#nav').innerHTML=NAV.map(([k,n,i])=>`<a href="#${k}" title="${n}" aria-label="${n}" class="${k===h||(h==='tips'&&k==='metode')?'on':''}">${I(i)}<span class="l">${n}</span></a>`).join('');
+$('#main').innerHTML=pages[h]();window.scrollTo(0,0)}
+const A={close:close_,sel:v=>{C.d=v;render()},cv:v=>{C.v=v;render()},cn:v=>{const n=+v,d=dt(C.d);if(C.v==='month')d.setMonth(d.getMonth()+n,1);else d.setDate(d.getDate()+n*(C.v==='week'?7:1));C.d=ymd(d);render()},ct:()=>{C.d=today();render()},
+aev:()=>evForm(),eev:evForm,dev:v=>{if(confirm('Hapus kegiatan ini?')){S.events=S.events.filter(e=>e.id!==v);save();render()}},
+atk:()=>taskForm(),etk:taskForm,dtk:v=>{if(confirm('Hapus tugas ini?')){S.tasks=S.tasks.filter(e=>e.id!==v);save();render()}},
+ans:v=>{QZ.a.push(KEYS[+v]);if(QZ.i+1<Q.length){QZ.i++;render();return}const sc={V:0,A:0,K:0,AV:0,RW:0};QZ.a.forEach(k=>sc[k]++);const r=KEYS.slice().sort((a,b)=>sc[b]-sc[a]);S.quiz={sc,date:today()};S.methods=sc[r[0]]-sc[r[1]]<=1?[r[0],r[1]]:[r[0]];QZ={i:0,a:[],run:false};save();render()},
+retake:()=>{QZ={i:0,a:[],run:true};render()},more:()=>{MORE=!MORE;render()},go:v=>location.hash='#'+v,
+start:()=>location.hash=S.quiz?'#tips':'#metode',
+tm:v=>{const m=S.methods.includes(v)?S.methods.filter(x=>x!==v):[...S.methods,v];if(!m.length)return toast('Pilih minimal satu metode.');S.methods=m;save();render()},
+pt:v=>{S.pt=v;save();render()},fl:v=>{S.focus[v]=(S.focus[v]||0)+1;save();render();toast('Tercatat.')},
+tp:()=>{if(T.run){T.run=false}else{T.run=true;T.end=Date.now()+T.left*1000}render()},tr:()=>{T.run=false;T.left=tot();document.title='Study Planner';render()},
+out:()=>{try{localStorage.removeItem(LK+'.session')}catch(e){}location.reload()},wipe:()=>{if(confirm('Hapus semua data?')){S=structuredClone(D);save();T.m='f';T.n=0;T.run=false;T.left=S.pomo.f*60;render()}}};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a])A[b.dataset.a](b.dataset.v)});
+document.addEventListener('change',e=>{const t=e.target,c=t.dataset.c;if(!c)return;
+if(c==='fs'){TF.s=t.value;render()}else if(c==='fp'){TF.p=t.value;render()}
+else if(c==='td'){const k=S.tasks.find(x=>x.id===t.dataset.v);k.done=t.checked;save();render()}
+else if(c==='rm'){S.rem.on=t.checked;if(t.checked)try{Notification.requestPermission()}catch(x){}save()}
+else if(c==='rt'){S.rem.time=t.value;save()}
+else if(c==='po'){const n=Math.max(1,Math.min(180,+t.value||1));S.pomo[t.dataset.k]=n;if(!T.run)T.left=tot();save();render()}
+else if(c==='sn'){S.name=t.value.trim();save()}
+else if(c==='gd'||c==='gw'){S.goals[c==='gd'?'d':'w']=Math.max(1,+t.value||1);save()}});
+addEventListener('hashchange',()=>U&&render());
+const UK=LK+'.users',SK=LK+'.session';let U=null;
+const rd=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+async function hs(p,s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s+p));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function enter(u){U=u;K=LK+'.u.'+u;S=load();if(!S.name)S.name=rd(UK,{})[u].name||u;save();T.m='f';T.n=0;T.run=false;T.left=S.pomo.f*60;try{localStorage.setItem(SK,u)}catch(e){}const a=$('#au');a&&a.remove();location.hash='#dashboard';render()}
+function authUI(reg){const d=document.createElement('div');d.id='au';d.style.cssText='position:fixed;inset:0;z-index:70;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:16px;overflow:auto';
+d.innerHTML=`<div class="md"><div class="logo" style="padding:0 0 14px"><i>${I('book',18)}</i><b>Study Planner</b></div><h3>${reg?'Buat akun':'Masuk'}</h3>${reg?fld('Nama panggilan','a_n','text',''):''}${fld('Nama pengguna','a_u','text','')}${fld('Kata sandi','a_p','password','')}<div id="a_e" class="sm" style="color:var(--er);min-height:22px;margin-top:6px"></div><button class="b" id="a_go" style="width:100%">${reg?'Daftar':'Masuk'}</button><p class="sm mu" style="text-align:center;margin:14px 0 0">${reg?'Sudah punya akun?':'Belum punya akun?'} <a href="#" id="a_sw">${reg?'Masuk':'Daftar'}</a></p></div>`;
+document.body.append(d);
+const go=async()=>{const u=v_('a_u').toLowerCase(),p=$('#a_p').value,us=rd(UK,{}),er=m=>$('#a_e').textContent=m;
+if(!/^[a-z0-9_]{3,20}$/.test(u))return er('Nama pengguna 3–20 karakter: huruf, angka, atau garis bawah.');
+if(p.length<6)return er('Kata sandi minimal 6 karakter.');
+try{if(reg){if(us[u])return er('Nama pengguna sudah dipakai.');const s=uid()+uid();us[u]={s,h:await hs(p,s),name:v_('a_n')||u};
+if(!Object.keys(rd(UK,{})).length&&localStorage.getItem(LK))localStorage.setItem(LK+'.u.'+u,localStorage.getItem(LK));
+localStorage.setItem(UK,JSON.stringify(us))}else{const a=us[u];if(!a||a.h!==await hs(p,a.s))return er('Nama pengguna atau kata sandi salah.')}}catch(e){return er('Browser ini tidak bisa menyimpan akun. Coba browser lain.')}
+enter(u)};
+$('#a_go').onclick=go;$('#a_p').onkeydown=e=>{if(e.key==='Enter')go()};$('#a_sw').onclick=e=>{e.preventDefault();d.remove();authUI(!reg)};($('#a_n')||$('#a_u')).focus()}
+{let s=null;try{s=localStorage.getItem(SK)}catch(e){}const us=rd(UK,{});if(s&&us[s])enter(s);else authUI(!Object.keys(us).length)}
+</script></body></html>
